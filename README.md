@@ -25,6 +25,8 @@ VeterinariaEden/
 │   └── modelo/
 │       ├── Persona.java
 │       ├── Responsable.java
+│       ├── Asistente.java
+│       ├── Veterinario.java
 │       ├── Mascota.java
 │       ├── Perro.java
 │       ├── Gato.java
