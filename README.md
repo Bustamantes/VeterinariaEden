@@ -24,13 +24,12 @@ VeterinariaEden/
 ├── src/
 │   └── modelo/
 │       ├── Persona.java
-│       ├── Responsable.java
-│       ├── Asistente.java
-│       ├── Veterinario.java
+│         ├── Responsable.java
+│         ├── Empleado.java | tipo : char (V = Veterinario | A = Asistente)
 │       ├── Mascota.java
-│       ├── Perro.java
-│       ├── Gato.java
-│       └── Ave.java
+│         ├── Perro.java
+│         ├── Gato.java
+│         └── Ave.java
 │   └── servicio/
 │       ├── ServicioVeterinario.java
 │       ├── Consulta.java
