@@ -30,6 +30,9 @@ VeterinariaEden/
 │         ├── Perro.java
 │         ├── Gato.java
 │         └── Ave.java
+│   └── registro/
+│       ├── RegistroAtencion.java
+│       └── Factura.java
 │   └── servicio/
 │       ├── ServicioVeterinario.java
 │         ├── Consulta.java
@@ -38,9 +41,6 @@ VeterinariaEden/
 │         ├── Cirugia.java
 │         ├── Urgencia.java
 │         └── Hospitalizacion.java
-│   └── registro/
-│       ├── RegistroAtencion.java
-│       └── Factura.java
 │   └── ui/
 │       └── MenuPrincipal.java
 │   └── Main.java
