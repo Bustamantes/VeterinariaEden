@@ -7,7 +7,9 @@ import registro.RegistroAtencion;
 
 import java.time.Period;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Consulta extends ServicioVeterinario {
 
@@ -35,10 +37,8 @@ public class Consulta extends ServicioVeterinario {
 
     @Override
     protected void aplicarServicio() {
-        // Lógica de consulta clínica
         System.out.println("Consulta: revisando síntomas de " + getMascota().getNombre());
-        // ... podrías añadir validaciones, registros de signos vitales, etc.
-        // Al terminar, vinculamos este servicio al registro:
+        // ... aquí podrías añadir lógica clínica adicional ...
         registro.agregarServicio(this);
     }
 
@@ -50,20 +50,35 @@ public class Consulta extends ServicioVeterinario {
     }
 
     /**
-     * Reúne toda la información del registro y de la consulta
-     * para presentar en UI, facturación o reportes.
+     * Reúne toda la información del registro y de la consulta,
+     * incluyendo un resumen dinámico de servicios realizados.
      */
     public Map<String, Object> extraerInfo() {
-        Map<String, Object> info = new HashMap<>();
+        Map<String, Object> info = new LinkedHashMap<>();
+        // — Datos de registro y consulta —
         info.put("fechaIngreso", registro.getFechaIngreso());
         info.put("motivo", registro.getMotivo());
         info.put("mascotaRegistro", registro.getMascota().getRegistro());
         info.put("asistenteID", registro.getAsistente().getIdentificacion());
-        info.put("síntomas", sintomas);
-        info.put("diagnóstico", diagnostico);
+        info.put("sintomas", sintomas);
+        info.put("diagnostico", diagnostico);
         info.put("tratamiento", tratamiento);
         info.put("observaciones", observaciones);
-        info.put("costo", calcularCosto());
+        info.put("costoConsulta", calcularCosto());
+
+        // — Resumen dinámico de servicios realizados en esta visita —
+        Map<String, Long> resumen = registro.getServicios().stream()
+            .collect(Collectors.groupingBy(
+                s -> s.getClass().getSimpleName(),   // e.g. "Bano", "Vacuna"
+                Collectors.counting()
+            ));
+
+        // Aseguramos que todas las categorías existan, incluso con 0
+        String[] tipos = {"Bano", "Vacuna", "Cirugia", "Urgencia", "Hospitalizacion"};
+        for (String tipo : tipos) {
+            info.put("n" + tipo, resumen.getOrDefault(tipo, 0L));
+        }
+
         return info;
     }
 }
