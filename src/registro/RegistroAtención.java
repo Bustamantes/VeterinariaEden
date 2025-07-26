@@ -17,8 +17,8 @@ public class RegistroAtencion {
     private Mascota mascota;
     private Empleado asistente;
     private Estado estado;
-    // Opcional: lista de servicios realizados en esta visita
-    private List<Object> servicios;  // puedes cambiar Object por una interfaz común
+
+    private List<Object> servicios; 
 
     public RegistroAtencion(LocalDate fechaIngreso,
                              String motivo,
