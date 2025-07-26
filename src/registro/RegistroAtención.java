@@ -3,14 +3,20 @@ package registro;
 
 import modelo.Mascota;
 import modelo.Empleado;
+import servicio.ServicioVeterinario;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RegistroAtencion {
 
-    public enum Estado { RECIBIDO, EN_PROCESO, TERMINADO }
+    public enum Estado { 
+        RECIBIDO, 
+        EN_PROCESO, 
+        TERMINADO 
+    }
 
     private LocalDate fechaIngreso;
     private String motivo;
@@ -18,7 +24,7 @@ public class RegistroAtencion {
     private Empleado asistente;
     private Estado estado;
 
-    private List<Object> servicios; 
+    private final List<ServicioVeterinario> servicios;
 
     public RegistroAtencion(LocalDate fechaIngreso,
                              String motivo,
@@ -74,15 +80,23 @@ public class RegistroAtencion {
         this.estado = estado;
     }
 
-    // Gestión de servicios (opcional)
-    public void agregarServicio(Object servicio) {
+    // Gestión de servicios
+
+    /**
+     * Agrega un servicio veterinario a este registro de atención.
+     * @param servicio instancia de ServicioVeterinario (Consulta, Bano, etc.)
+     */
+    public void agregarServicio(ServicioVeterinario servicio) {
         if (servicio != null) {
             servicios.add(servicio);
         }
     }
 
-    public List<Object> getServicios() {
-        return servicios;
+    /**
+     * Devuelve una lista inmutable de los servicios asociados a esta visita.
+     */
+    public List<ServicioVeterinario> getServicios() {
+        return Collections.unmodifiableList(servicios);
     }
 
     @Override
@@ -93,7 +107,7 @@ public class RegistroAtencion {
                ", mascota=" + mascota.getRegistro() +
                ", asistente=" + asistente.getIdentificacion() +
                ", estado=" + estado +
-               ", servicios=" + servicios.size() +
+               ", serviciosRealizados=" + servicios.size() +
                '}';
     }
 }
